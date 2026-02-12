@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment | Royal Dine</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(135deg,#0f3d2e,#000);
+color:white;
+}
+
+.container{
+max-width:450px;
+margin:40px auto;
+background:white;
+color:black;
+padding:25px;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+h2{text-align:center;color:#0f3d2e;}
+
+input,select,button{
+width:100%;
+padding:10px;
+margin:8px 0;
+border-radius:8px;
+border:1px solid #ccc;
+font-size:15px;
+}
+
+button{
+background:#0f3d2e;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+button:hover{background:#d4af37;color:black;}
+
+.order-box{
+background:#f4f4f4;
+padding:10px;
+border-radius:10px;
+margin-bottom:15px;
+}
+
+.success{
+display:none;
+text-align:center;
+color:green;
+font-weight:600;
+font-size:18px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Checkout & Payment</h2>
+
+<div class="order-box">
+<h3>Order Summary</h3>
+<ul id="orderList"></ul>
+<b>Total: ₹<span id="total">0</span></b>
+</div>
+
+<input type="text" placeholder="Full Name" required>
+<input type="text" placeholder="Mobile Number" required>
+<input type="text" placeholder="Delivery Address" required>
+
+<select>
+<option>Select Payment Method</option>
+<option>UPI</option>
+<option>Credit Card</option>
+<option>Debit Card</option>
+<option>Cash On Delivery</option>
+</select>
+
+<button onclick="placeOrder()">Place Order ✅</button>
+
+<p class="success" id="success">🎉 Order Placed Successfully!</p>
+</div>
+
+<script>
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+let list=document.getElementById("orderList");
+let total=0;
+
+cart.forEach(item=>{
+total+=item.price*item.qty;
+list.innerHTML+=`<li>${item.name} x${item.qty} - ₹${item.price*item.qty}</li>`;
+});
+
+document.getElementById("total").innerText=total;
+
+function placeOrder(){
+document.getElementById("success").style.display="block";
+localStorage.removeItem("cart");
+setTimeout(()=>window.location.href="index.html",2500);
+}
+</script>
+
+</body>
+</html>
